@@ -2,19 +2,28 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Attributes\Description;
-use Illuminate\Console\Attributes\Signature;
+use App\Jobs\CheckMonitor;
+use App\Models\Monitor;
 use Illuminate\Console\Command;
 
-#[Signature('app:run-monitor-checks')]
-#[Description('Command description')]
 class RunMonitorChecks extends Command
 {
-    /**
-     * Execute the console command.
-     */
-    public function handle()
+    protected $signature = 'monitors:check';
+    protected $description = 'Run checks for all due monitors';
+
+    public function handle(): void
     {
-        //
+        $monitors = Monitor::all();
+
+        foreach ($monitors as $monitor) {
+            $lastChecked = $monitor->last_checked_at;
+            $intervalMinutes = $monitor->check_interval;
+
+            if (!$lastChecked || now()->diffInMinutes($lastChecked) >= $intervalMinutes) {
+                CheckMonitor::dispatch($monitor);
+            }
+        }
+
+        $this->info('Monitor checks dispatched.');
     }
 }
