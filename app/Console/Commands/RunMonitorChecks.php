@@ -19,7 +19,7 @@ class RunMonitorChecks extends Command
             $lastChecked = $monitor->last_checked_at;
             $intervalMinutes = $monitor->check_interval;
 
-            if (!$lastChecked || now()->diffInMinutes($lastChecked) >= $intervalMinutes) {
+            if (!$lastChecked || $lastChecked->addMinutes($intervalMinutes)->isPast()) {
                 CheckMonitor::dispatch($monitor);
             }
         }
