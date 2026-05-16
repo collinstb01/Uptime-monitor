@@ -13,6 +13,10 @@ use Illuminate\Queue\SerializesModels;
 class SiteDownMail extends Mailable
 {
     use Queueable, SerializesModels;
+
+    public function __construct(public \App\Models\Monitor $monitor)
+    {
+    }
     /**
      * Get the message envelope.
      */
