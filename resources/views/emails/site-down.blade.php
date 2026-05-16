@@ -1,12 +1,16 @@
-<x-mail::message>
-# Introduction
+@component('mail::message')
+# Site Down Alert
 
-The body of your message.
+Your monitored site is currently **DOWN**.
 
-<x-mail::button :url="''">
-Button Text
-</x-mail::button>
+**URL:** {{ $monitor->url }}
+**Status:** Down
+**Time:** {{ now()->toDateTimeString() }}
 
-Thanks,<br>
-{{ config('app.name') }}
-</x-mail::message>
+@component('mail::button', ['url' => $monitor->url])
+Visit Site
+@endcomponent
+
+Thanks,
+Uptime Monitor
+@endcomponent

@@ -1,12 +1,16 @@
-<x-mail::message>
-# Introduction
+@component('mail::message')
+# Site Recovered
 
-The body of your message.
+Your monitored site is back **UP**.
 
-<x-mail::button :url="''">
-Button Text
-</x-mail::button>
+**URL:** {{ $monitor->url }}
+**Status:** Up
+**Time:** {{ now()->toDateTimeString() }}
 
-Thanks,<br>
-{{ config('app.name') }}
-</x-mail::message>
+@component('mail::button', ['url' => $monitor->url])
+Visit Site
+@endcomponent
+
+Thanks,
+Uptime Monitor
+@endcomponent

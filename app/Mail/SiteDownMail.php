@@ -13,42 +13,20 @@ use Illuminate\Queue\SerializesModels;
 class SiteDownMail extends Mailable
 {
     use Queueable, SerializesModels;
-
-    /**
-     * Create a new message instance.
-     */
-    public function __construct()
-    {
-        //
-    }
-
     /**
      * Get the message envelope.
      */
     public function envelope(): Envelope
     {
-        return new Envelope(
-            subject: 'Site Down Mail',
-        );
+        return new Envelope(subject: 'Site Down Alert: ' . $this->monitor->url);
     }
-
     /**
      * Get the message content definition.
      */
+
     public function content(): Content
     {
-        return new Content(
-            markdown: 'emails.site-down',
-        );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, Attachment>
-     */
-    public function attachments(): array
-    {
-        return [];
+        return new Content(markdown: 'emails.site-down');
     }
 }
+
