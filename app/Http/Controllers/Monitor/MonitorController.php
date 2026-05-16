@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Monitor;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Monitor;
 use Illuminate\Http\Request;
