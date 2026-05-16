@@ -56,7 +56,7 @@ class MonitorController extends Controller
                 'is_up' => $c->is_up,
                 'checked_at' => $c->checked_at,
             ]),
-            'page_metadata' => [
+            'meta' => [
                 'current_page' => $checks->currentPage(),
                 'per_page' => $checks->perPage(),
                 'total' => $checks->total(),
